@@ -1,45 +1,38 @@
 
-
-
-
-function GoalList({ goals, toggleComplete, handleDelete }) {
+function GoalList({ goals, toggleComplete, handleDelete, color }) {
   return (
     <div className="goal-list">
-      {goals.length === 0 ? (
-        <p style={{ color: 'gray' }}>No goals yet. Click + to add your first goal!</p>
-      ) : (
-        <p style={{ color: 'white' }}>You have {goals.length} goal(s)</p>
-      )}
-
       {goals.map((goal, index) => (
-  <div key={goal.id} className="goal-item">
-    <input
-      type="checkbox"
-      id={`goal-${index}`}
-      checked={goal.completed}
-      onChange={() => toggleComplete(goal)}
-    />
-    <label htmlFor={`goal-${index}`} className={goal.completed ? 'completed' : ''}>
-      <strong>{goal.title}</strong><br />
-      {goal.description}
-    </label>
+        <div
+  key={index}
+  className="goal-item"
+  style={{
+    backgroundColor: goal.color || '#333', // ✅ Use saved color from Firestore
+    color: '#fff',
+    border: '1px solid white'
+  }}
+>
 
-    {/* Delete button */}
-    <button
-      style={{ marginLeft: 'auto', color: 'red', background: 'transparent', border: 'none', cursor: 'pointer' }}
-      onClick={() => handleDelete(goal.id)}
-    >
-      🗑️
-    </button>
-
+          <input
+            type="checkbox"
+            id={`goal-${index}`}
+            checked={goal.completed}
+            onChange={() => toggleComplete(goal)}
+          />
+          <label
+            htmlFor={`goal-${index}`}
+            className={goal.completed ? 'completed' : ''}
+          >
+            <strong>{goal.title}</strong><br />
+            {goal.description}
+          </label>
+          <button onClick={() => handleDelete(goal.id)} style={{ marginLeft: 'auto' }}>
+            🗑️
+          </button>
+        </div>
+      ))}
     </div>
-      ) 
-   
-  ) }
-
-  </div>)}
-
-
-
+  );
+}
 
 export default GoalList;

@@ -19,23 +19,37 @@ function App() {
   const [goals, setGoals] = useState([]);
   // const [isSignedIn, setIsSignedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [dialogColor, setDialogColor] = useState('#222831'); // default dark color
+  const [dateTime, setDateTime] = useState('');
+
 
   const handleSubmit = async () => {
-    if (!title.trim() || !description.trim()) {
-      alert('Please fill in both fields.');
-      return;
-    }
-    const newGoal = { title, description, completed: false,userId: user.uid };
-   try {
+  if (!title.trim() || !description.trim() || !dateTime) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const newGoal = {
+    title,
+    description,
+    completed: false,
+    userId: user.uid,
+    color: dialogColor,
+    dateTime // ✅ Save the selected date and time
+  };
+
+  try {
     await addDoc(collection(db, 'goals'), newGoal);
     setTitle('');
     setDescription('');
+    setDateTime('');
     setShowDialog(false);
-    } catch (error) {
+  } catch (error) {
     console.error("Error adding goal:", error);
   }
-  
-  };
+};
+
+
 
   const toggleComplete = async (goal) => {
   try {
@@ -109,12 +123,22 @@ const handleDelete = async (goalId) => {
                   setShowDialog(false);
                   setTitle('');
                   setDescription('');
+                  setDateTime('');
                 }}
                 onSubmit={handleSubmit}
+                 bgColor={dialogColor}
+                onColorChange={setDialogColor} 
+                dateTime={dateTime}
+                onDateTimeChange={(e) => setDateTime(e.target.value)}
               />
             )}
 
-            <GoalList goals={goals} toggleComplete={toggleComplete}  handleDelete={handleDelete} />
+            <GoalList 
+            goals={goals} 
+            toggleComplete={toggleComplete} 
+            handleDelete={handleDelete}
+            color={dialogColor}
+            />
             <h1>Let's Progress together.</h1>
             <button className="logout-button" onClick={() => signOut(auth)}>
   🔓 Logout
