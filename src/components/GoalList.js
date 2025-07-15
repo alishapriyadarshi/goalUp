@@ -1,15 +1,26 @@
+const isOverdue = (goal) => {
+  return (
+    goal.dateTime &&
+    new Date(goal.dateTime) < new Date() &&
+    !goal.completed
+  );
+};
+
 
 function GoalList({ goals, toggleComplete, handleDelete, color }) {
   return (
     <div className="goal-list">
       {goals.map((goal, index) => (
-        <div
+       <div
   key={index}
-  className="goal-item"
+  className={`goal-item ${isOverdue(goal) ? 'overdue' : ''}`}
+  onClick={() => onEdit(goal)} // ✅ Open in dialog on click
   style={{
-    backgroundColor: goal.color || '#333', // ✅ Use saved color from Firestore
+    backgroundColor: goal.color || '#333',
     color: '#fff',
-    border: '1px solid white'
+    border: isOverdue(goal) ? '2px solid red' : '1px solid white',
+    animation: isOverdue(goal) ? 'pulse 1.5s infinite' : 'none',
+    cursor: 'pointer',
   }}
 >
 

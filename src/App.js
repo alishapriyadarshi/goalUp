@@ -21,6 +21,12 @@ function App() {
   const [user, setUser] = useState(null);
   const [dialogColor, setDialogColor] = useState('#222831'); // default dark color
   const [dateTime, setDateTime] = useState('');
+  const [selectedGoal, setSelectedGoal] = useState(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [newDateTime, setNewDateTime] = useState('');
+  const [editingGoal, setEditingGoal] = useState(null);
+
+
 
 
   const handleSubmit = async () => {
@@ -29,26 +35,36 @@ function App() {
     return;
   }
 
-  const newGoal = {
+  const goalData = {
     title,
     description,
-    completed: false,
+    completed: editingGoal?.completed || false,
     userId: user.uid,
     color: dialogColor,
-    dateTime // ✅ Save the selected date and time
+    dateTime,
   };
 
   try {
-    await addDoc(collection(db, 'goals'), newGoal);
+    if (editingGoal) {
+      // Update existing
+      const docRef = doc(db, 'goals', editingGoal.id);
+      await updateDoc(docRef, goalData);
+    } else {
+      // Add new
+      await addDoc(collection(db, 'goals'), goalData);
+    }
+
+    // Reset
     setTitle('');
     setDescription('');
     setDateTime('');
+    setDialogColor('#000'); // or any default
+    setEditingGoal(null);
     setShowDialog(false);
   } catch (error) {
-    console.error("Error adding goal:", error);
+    console.error("Error saving goal:", error);
   }
 };
-
 
 
   const toggleComplete = async (goal) => {

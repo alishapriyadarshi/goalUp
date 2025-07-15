@@ -285,3 +285,12 @@ input[type="checkbox"]:checked {
   gap: 10px;
 }
 
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.goal-item.overdue {
+  border-color: red;
+}
