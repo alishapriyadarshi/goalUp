@@ -7,14 +7,15 @@ const isOverdue = (goal) => {
 };
 
 
-function GoalList({ goals, toggleComplete, handleDelete, color }) {
+function GoalList({ goals, toggleComplete, handleDelete, setEditingGoal }) {
+
   return (
     <div className="goal-list">
       {goals.map((goal, index) => (
        <div
   key={index}
   className={`goal-item ${isOverdue(goal) ? 'overdue' : ''}`}
-  onClick={() => onEdit(goal)} // ✅ Open in dialog on click
+  onClick={() => setEditingGoal(goal)}
   style={{
     backgroundColor: goal.color || '#333',
     color: '#fff',

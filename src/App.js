@@ -153,6 +153,7 @@ const handleDelete = async (goalId) => {
             goals={goals} 
             toggleComplete={toggleComplete} 
             handleDelete={handleDelete}
+            setEditingGoal={setEditingGoal}
             color={dialogColor}
             />
             <h1>Let's Progress together.</h1>
