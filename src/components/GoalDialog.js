@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+const [showColors, setShowColors] = useState(false);
+
 // components/GoalDialog.js
 function GoalDialog({
   title,
@@ -39,17 +42,44 @@ function GoalDialog({
   />
 </div>
 
+      {/* 🎨 Color Theme Toggle */}
+<div style={{ margin: '15px 0' }}>
+  <button
+    onClick={() => setShowColors(!showColors)}
+    style={{
+      backgroundColor: 'transparent',
+      color: 'white',
+      border: '1px solid white',
+      padding: '6px 12px',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      fontSize: '14px'
+    }}
+  >
+    🎨 Choose Theme
+  </button>
 
-        {/* ✅ Small Color Picker inside Dialog */}
-        <div style={{ margin: '10px 0', textAlign: 'left' }}>
-          <label style={{ color: 'white', fontSize: '14px', marginRight: '8px' }}>🎨 Theme</label>
-          <input
-            type="color"
-            value={bgColor}
-            onChange={(e) => onColorChange(e.target.value)}
-            style={{ width: '40px', height: '25px', border: 'none' }}
-          />
-        </div>
+  {showColors && (
+    <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+      {['#f44336', '#ff9800', '#ffeb3b', '#03a9f4', '#9c27b0'].map((color) => (
+        <button
+          key={color}
+          onClick={() => onColorChange(color)}
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            backgroundColor: color,
+            border: bgColor === color ? '2px solid white' : '1px solid #ccc',
+            cursor: 'pointer'
+          }}
+          title={color}
+        />
+      ))}
+    </div>
+  )}
+</div>
+
 
         <button className="dialog-button add" onClick={onSubmit}>Add</button>
         <button className="dialog-button close" onClick={onClose}>Close</button>

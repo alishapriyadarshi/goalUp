@@ -17,6 +17,19 @@ function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [goals, setGoals] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+ const filteredGoals = goals.filter((goal) =>
+  (goal.title && goal.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  (goal.description && goal.description.toLowerCase().includes(searchQuery.toLowerCase()))
+);
+
+const onProgressGoals = filteredGoals.filter((goal) => !goal.completed);
+const doneGoals = filteredGoals.filter((goal) => goal.completed);
+const [showOnProgress, setShowOnProgress] = useState(false);
+const [showDoneGoals, setShowDoneGoals] = useState(false);
+
+
+
   // const [isSignedIn, setIsSignedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [dialogColor, setDialogColor] = useState('#222831'); // default dark color
@@ -25,15 +38,17 @@ function App() {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [newDateTime, setNewDateTime] = useState('');
   const [editingGoal, setEditingGoal] = useState(null);
-
-
-
+  
 
   const handleSubmit = async () => {
   if (!title.trim() || !description.trim() || !dateTime) {
     alert('Please fill in all fields.');
     return;
   }
+
+  
+
+
 
   const goalData = {
     title,
@@ -107,6 +122,8 @@ function App() {
 };
 
 const handleDelete = async (goalId) => {
+  setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== goalId));
+
   try {
     await deleteDoc(doc(db, 'goals', goalId));
     // Firestore will auto-update the UI
@@ -123,11 +140,28 @@ const handleDelete = async (goalId) => {
         />
       ) : (
         <>
+
           <header className="App-header">
             <p>Welcome, {user.displayName}</p>
-            <Button className="round-button" onClick={() => setShowDialog(true)}>
+
+       <div className="top-bar">
+        <input
+          type="text"
+          placeholder="Search goal..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+        <button onClick={() => setShowDialog(true)} className="add-goal-button">
+          + Add Goal
+        </button>
+      </div>
+           {/* <Button className="round-button" onClick={() => setShowDialog(true)}>
               +
-            </Button>
+            </Button> */}
+
+
+       <GoalList goals={filteredGoals} />
 
             {showDialog && (
               <GoalDialog
@@ -148,14 +182,41 @@ const handleDelete = async (goalId) => {
                 onDateTimeChange={(e) => setDateTime(e.target.value)}
               />
             )}
+         {/* 🟡 On Progress */}
+<div className="goal-section">
+  <div className="section-header" onClick={() => setShowOnProgress(!showOnProgress)}>
+    🟡 On Progress
+    <span>{showOnProgress ? '▲' : '▼'}</span>
+  </div>
+  {showOnProgress && (
+    <GoalList
+      goals={filteredGoals.filter((goal) => !goal.completed)}
+      toggleComplete={toggleComplete}
+      handleDelete={handleDelete}
+      setEditingGoal={setEditingGoal}
+      color={dialogColor}
+    />
+  )}
+</div>
 
-            <GoalList 
-            goals={goals} 
-            toggleComplete={toggleComplete} 
-            handleDelete={handleDelete}
-            setEditingGoal={setEditingGoal}
-            color={dialogColor}
-            />
+{/* ✅ Goal Done */}
+<div className="goal-section">
+  <div className="section-header" onClick={() => setShowDoneGoals(!showDoneGoals)}>
+    ✅ Goal Done
+    <span>{showDoneGoals ? '▲' : '▼'}</span>
+  </div>
+  {showDoneGoals && (
+    <GoalList
+      goals={filteredGoals.filter((goal) => goal.completed)}
+      toggleComplete={toggleComplete}
+      handleDelete={handleDelete}
+      setEditingGoal={setEditingGoal}
+      color={dialogColor}
+    />
+  )}
+</div>
+            
+      {filteredGoals.length === 0 && <p>No matching goals found.</p>}
             <h1>Let's Progress together.</h1>
             <button className="logout-button" onClick={() => signOut(auth)}>
   🔓 Logout

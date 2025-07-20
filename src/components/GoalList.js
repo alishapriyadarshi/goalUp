@@ -7,7 +7,8 @@ const isOverdue = (goal) => {
 };
 
 
-function GoalList({ goals, toggleComplete, handleDelete, setEditingGoal }) {
+
+function GoalList({ goals, toggleComplete, handleDelete, setEditingGoal,color}) {
 
   return (
     <div className="goal-list">
