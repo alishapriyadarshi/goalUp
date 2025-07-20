@@ -1,6 +1,5 @@
 import './App.css';
 import { useState , useEffect} from 'react';
-import Button from './components/Button';
 import GoalDialog from './components/GoalDialog';
 import GoalList from './components/GoalList';
 import LoginForm from './components/LoginForm';
@@ -152,7 +151,14 @@ const handleDelete = async (goalId) => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
-        <button onClick={() => setShowDialog(true)} className="add-goal-button">
+        <button onClick={() => {
+              setEditingGoal(null);
+              setTitle('');
+              setDescription('');
+              setDateTime('');
+              setDialogColor('#222831');
+              setShowDialog(true);
+                }} className="add-goal-button">
           + Add Goal
         </button>
       </div>
@@ -161,7 +167,12 @@ const handleDelete = async (goalId) => {
             </Button> */}
 
 
-       <GoalList goals={filteredGoals} />
+       <GoalList goals={filteredGoals}
+        toggleComplete={toggleComplete}
+        handleDelete={handleDelete}
+        setEditingGoal={setEditingGoal}
+        color={dialogColor} 
+      />
 
             {showDialog && (
               <GoalDialog

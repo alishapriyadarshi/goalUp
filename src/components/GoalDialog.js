@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const [showColors, setShowColors] = useState(false);
+
 
 // components/GoalDialog.js
 function GoalDialog({
@@ -14,6 +14,7 @@ function GoalDialog({
    dateTime,          
   onDateTimeChange   
 }) {
+  const [showColors, setShowColors] = useState(false);
   return (
     <div className="overlay">
       <div className="center-dialog" style={{ backgroundColor: bgColor }}>
