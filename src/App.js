@@ -63,9 +63,11 @@ const [showDoneGoals, setShowDoneGoals] = useState(false);
       // Update existing
       const docRef = doc(db, 'goals', editingGoal.id);
       await updateDoc(docRef, goalData);
+      console.log("Goal updated successfully:", docRef.id);
     } else {
       // Add new
       await addDoc(collection(db, 'goals'), goalData);
+            console.log("Goal added successfully");
     }
 
     // Reset
@@ -167,12 +169,12 @@ const handleDelete = async (goalId) => {
             </Button> */}
 
 
-       <GoalList goals={filteredGoals}
+       {/* <GoalList goals={filteredGoals}
         toggleComplete={toggleComplete}
         handleDelete={handleDelete}
         setEditingGoal={setEditingGoal}
         color={dialogColor} 
-      />
+      /> */}
 
             {showDialog && (
               <GoalDialog
@@ -194,7 +196,7 @@ const handleDelete = async (goalId) => {
               />
             )}
          {/* 🟡 On Progress */}
-<div className="goal-section">
+{/* <div className="goal-section">
   <div className="section-header" onClick={() => setShowOnProgress(!showOnProgress)}>
     🟡 On Progress
     <span>{showOnProgress ? '▲' : '▼'}</span>
@@ -208,10 +210,10 @@ const handleDelete = async (goalId) => {
       color={dialogColor}
     />
   )}
-</div>
+</div> */}
 
 {/* ✅ Goal Done */}
-<div className="goal-section">
+{/* <div className="goal-section">
   <div className="section-header" onClick={() => setShowDoneGoals(!showDoneGoals)}>
     ✅ Goal Done
     <span>{showDoneGoals ? '▲' : '▼'}</span>
@@ -225,7 +227,28 @@ const handleDelete = async (goalId) => {
       color={dialogColor}
     />
   )}
-</div>
+</div> */}
+
+{/* On Progress Section */}
+<h2 style={{ color: '#ffaa00', marginTop: '20px' }}>🟡 On Progress</h2>
+<GoalList
+  goals={filteredGoals.filter((goal) => !goal.completed)}
+  toggleComplete={toggleComplete}
+  handleDelete={handleDelete}
+  setEditingGoal={setEditingGoal}
+  color={dialogColor}
+/>
+
+{/* Done Goal Section */}
+<h2 style={{ color: '#00dd99', marginTop: '20px' }}>✅ Goal Done</h2>
+<GoalList
+  goals={filteredGoals.filter((goal) => goal.completed)}
+  toggleComplete={toggleComplete}
+  handleDelete={handleDelete}
+  setEditingGoal={setEditingGoal}
+  color={dialogColor}
+/>
+
             
       {filteredGoals.length === 0 && <p>No matching goals found.</p>}
             <h1>Let's Progress together.</h1>

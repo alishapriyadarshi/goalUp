@@ -274,25 +274,86 @@ input[type="checkbox"]:checked {
   cursor: pointer;
 }
 
+
 .goal-item {
-  /* Remove this if it's overriding dynamic color */
-  /* background-color: #0a0101; */
+  background-color: #1a1a1a;
   border-radius: 10px;
-  padding: 12px;
-  margin: 10px 0;
+  padding: 16px;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: white;
+  width: 100%;
+  max-width: 600px; /* defines a nice consistent width */
+  border: 1px solid #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  word-wrap: break-word;   /* wrap long words */
+  overflow-wrap: break-word; /* ensure long strings break */
+  white-space: normal;     /* allow multiline content */
+}
+
+
+.goal-item-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.goal-item:hover {
+  background-color: #222;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.goal-item.overdue {
+  border: 2px solid red;
+  animation: pulse 1.5s infinite;
+}
+
+.goal-checkbox {
+  transform: scale(1.3);
+  accent-color: #00ff00;
+}
+
+.goal-content {
+  flex: 1;
+}
+
+.goal-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.goal-description {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.goal-date {
+  font-size: 13px;
+  color: #ccc;
+  margin-left: 24px;
+}
+
+
+.goal-delete-button {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #f66;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.goal-delete-button:hover {
+  transform: scale(1.2);
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
-}
-
-.goal-item.overdue {
-  border-color: red;
 }
 
 
