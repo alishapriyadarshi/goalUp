@@ -19,10 +19,10 @@ export default function GoalDialog({
   return (
     <div className="overlay">
       <div className="dialog">
-        <h2>🎯 Add / Edit Goal</h2>
+        <h2> Add / Edit Goal</h2>
         <input value={title} onChange={onTitleChange} placeholder="Title" />
         <textarea value={description} onChange={onDescChange} placeholder="Description" />
-        <input type="datetime-local" value={dateTime} onChange={onDateTimeChange} />
+        <input type="datetime-local" step="60" value={dateTime} onChange={onDateTimeChange} />
         <div className="color-picker">
           <span>Color:</span>
           <div
