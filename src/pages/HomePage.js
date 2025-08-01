@@ -1,4 +1,3 @@
-// 
 // src/pages/HomePage.js
 
 import React, { useState, useEffect } from 'react';
@@ -17,7 +16,6 @@ import {
   deleteDoc,
   doc
 } from 'firebase/firestore';
-
 
 export default function HomePage({ user }) {
   const auth = getAuth();
@@ -44,6 +42,25 @@ export default function HomePage({ user }) {
     return () => unsubscribe();
   }, [user]);
 
+  // sync form when editing changes (edit vs add)
+  useEffect(() => {
+    if (editing) {
+      setForm({
+        title: editing.title || '',
+        description: editing.description || '',
+        dateTime: editing.dateTime || '',
+        color: editing.color || '#76ff03',
+      });
+    } else {
+      setForm({
+        title: '',
+        description: '',
+        dateTime: '',
+        color: '#76ff03',
+      });
+    }
+  }, [editing]);
+
   const filtered = goals.filter(g =>
     g.title.toLowerCase().includes(search.toLowerCase()) ||
     g.description.toLowerCase().includes(search.toLowerCase())
@@ -65,24 +82,28 @@ export default function HomePage({ user }) {
     setShowDialog(false);
   };
 
+  const firstName = user?.displayName ? user.displayName.split(' ')[0] : 'User';
+
   return (
     <div className="app-layout">
-      {/* The Sidebar is now permanent and receives the logout function */}
       <Sidebar user={user} onLogout={() => signOut(auth)} />
 
-      {/* All other content goes inside this main-content wrapper */}
       <main className="main-content">
         <header className="top-bar">
           <div className="logo">
             <h1>KeepSGoal</h1>
-            <span>Welcome, {user.displayName.split(' ')[0]}</span>
+            <span>Welcome, {firstName}</span>
           </div>
           <div className="actions">
             <button
               className="add-btn"
-              onClick={() => { setEditing(null); setShowDialog(true); }}
-            >+ Add Goal</button>
-            {/* The old logout button is removed from here */}
+              onClick={() => {
+                setEditing(null);
+                setShowDialog(true);
+              }}
+            >
+              + Add Goal
+            </button>
           </div>
         </header>
 
@@ -96,15 +117,22 @@ export default function HomePage({ user }) {
         </div>
 
         <section className="summary">
-          <div className="summary-item">Total Goals: <strong>{totalCount}</strong></div>
-          <div className="summary-item">Achieved: <strong>{completedCount}</strong></div>
+          <div className="summary-item">
+            Total Goals: <strong>{totalCount}</strong>
+          </div>
+          <div className="summary-item">
+            Achieved: <strong>{completedCount}</strong>
+          </div>
         </section>
 
         <GoalList
           goals={filtered}
           toggleComplete={async g => await updateDoc(doc(db, 'goals', g.id), { completed: !g.completed })}
           handleDelete={async id => await deleteDoc(doc(db, 'goals', id))}
-          setEditing={g => { setEditing(g); setForm(g); setShowDialog(true); }}
+          setEditing={g => {
+            setEditing(g);
+            setShowDialog(true);
+          }}
         />
       </main>
 
