@@ -68,9 +68,58 @@ p {
   border-bottom: 1px solid var(--border-light);
 }
 
+.top-bar .logo {
+  padding-left: 40px; /* or margin-left if you prefer */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* user info box with rounded dark background like My Goals button */
+.profile-section.side-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #2c3238; /* same as active "My Goals" button bg */
+  width: 100%;
+  text-align: left;
+}
+
+/* ensure name/email have no extra margins and are truncated if long */
+.user-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 8px 0 12px; /* space above and below */
+  width: 100%;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .page-header h2 {
+
   font-size: 1.8rem;
 }
+
 
 /* Logo / branding */
 .logo h1 {

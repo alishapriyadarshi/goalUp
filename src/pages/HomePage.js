@@ -89,12 +89,31 @@ export default function HomePage({ user }) {
       <Sidebar user={user} onLogout={() => signOut(auth)} />
 
       <main className="main-content">
-        <header className="top-bar">
-          <div className="logo">
-            <h1>KeepSGoal</h1>
+        <header className="top-bar" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} className="logo">
+            <h1>KeepsGoal</h1>
             <span>Welcome, {firstName}</span>
           </div>
-          <div className="actions">
+           <div className="search-add-container" style={{ marginTop: 0 }}>
+    <input
+      className="search-input"
+      placeholder="🔍 Search your goals..."
+      value={search}
+      onChange={e => setSearch(e.target.value)}
+      style={{ flex: 1, minWidth: 0 }} // make it take available space
+    />
+    <button
+      className="add-btn"
+      onClick={() => {
+        setEditing(null);
+        setShowDialog(true);
+      }}
+      style={{ marginLeft: '12px' }}
+    >
+      + Add Goal
+    </button>
+  </div>
+          {/* <div className="actions">
             <button
               className="add-btn"
               onClick={() => {
@@ -104,17 +123,17 @@ export default function HomePage({ user }) {
             >
               + Add Goal
             </button>
-          </div>
+          </div> */}
         </header>
 
-        <div className="search-container">
+        {/* <div className="search-container">
           <input
             className="search-input"
             placeholder="🔍 Search your goals..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
-        </div>
+        </div> */}
 
         <section className="summary">
           <div className="summary-item">
