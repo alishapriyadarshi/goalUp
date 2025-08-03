@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mygoalhub/static/css/main.36263f9c.css",
+    "main.js": "/mygoalhub/static/js/main.8e7c4c7c.js",
+    "static/js/453.96453769.chunk.js": "/mygoalhub/static/js/453.96453769.chunk.js",
+    "index.html": "/mygoalhub/index.html",
+    "main.36263f9c.css.map": "/mygoalhub/static/css/main.36263f9c.css.map",
+    "main.8e7c4c7c.js.map": "/mygoalhub/static/js/main.8e7c4c7c.js.map",
+    "453.96453769.chunk.js.map": "/mygoalhub/static/js/453.96453769.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.36263f9c.css",
+    "static/js/main.8e7c4c7c.js"
+  ]
+}
