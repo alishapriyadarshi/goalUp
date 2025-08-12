@@ -121,7 +121,7 @@ export default function GoalList({ goals, toggleComplete, handleDelete, setEditi
       progress = 100;
     }
 
-    const progressColor = goal.completed ? '#555' : '#388e3c'; // CHANGE: new darker green hex code
+  const tagColor = goal.completed ? '#555' : goal.color || '#388e3c';
 
     return (
       <div
@@ -153,7 +153,7 @@ export default function GoalList({ goals, toggleComplete, handleDelete, setEditi
           <div className="tag-time-wrapper">
             <span
               className="tag-dot"
-              style={{ backgroundColor: progressColor }}
+              style={{ backgroundColor: tagColor }}
             ></span>
             <time>
               {new Date(goal.dateTime).toLocaleString(undefined, {
@@ -199,7 +199,7 @@ export default function GoalList({ goals, toggleComplete, handleDelete, setEditi
             className="progress-bar"
             style={{
               width: `${progress}%`,
-              backgroundColor: progressColor,
+              backgroundColor: tagColor,
             }}
           ></div>
         </div>
