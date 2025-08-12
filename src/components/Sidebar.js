@@ -60,7 +60,7 @@ export default function Sidebar({ user, onLogout }) {
       >
         {/* Logo + divider */}
         <div className="sidebar-logo" style={{ marginBottom: '8px' }}>
-          <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--accent)' }}>KeepsGoal</h1>
+          <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--accent)' }}>GoalUp</h1>
         </div>
         <div
           style={{

@@ -70,7 +70,7 @@ export default function HomePage({ user }) {
   const totalCount = goals.length;
 
   const handleSubmit = async () => {
-    if (!form.title || !form.description || !form.dateTime) return;
+    if (!form.title || !form.description || !form.dateTime)  { alert('Please fill in all the fields.'); return; }
     const payload = { ...form, userId: user.uid, completed: editing?.completed || false };
     if (editing) {
       await updateDoc(doc(db, 'goals', editing.id), payload);
@@ -91,7 +91,7 @@ export default function HomePage({ user }) {
       <main className="main-content">
         <header className="top-bar" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} className="logo">
-            <h1>KeepsGoal</h1>
+            <h1>GoalUp</h1>
             <span>Welcome, {firstName}</span>
           </div>
            <div className="search-add-container" style={{ marginTop: 0 }}>
