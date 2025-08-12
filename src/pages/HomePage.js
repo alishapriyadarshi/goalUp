@@ -5,6 +5,7 @@ import GoalDialog from '../components/GoalDialog';
 import GoalList from '../components/GoalList';
 import Sidebar from '../components/Sidebar';
 import { getAuth, signOut } from 'firebase/auth';
+import { serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase'; // Assuming db is exported from firebase config
 import {
   collection,
@@ -69,14 +70,24 @@ export default function HomePage({ user }) {
   const completedCount = goals.filter(g => g.completed).length;
   const totalCount = goals.length;
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
     if (!form.title || !form.description || !form.dateTime)  { alert('Please fill in all the fields.'); return; }
-    const payload = { ...form, userId: user.uid, completed: editing?.completed || false };
+
     if (editing) {
+      // Logic for editing an existing goal
+      const payload = { ...form, completed: editing.completed || false };
       await updateDoc(doc(db, 'goals', editing.id), payload);
     } else {
-      await addDoc(collection(db, 'goals'), payload);
+      // Logic for adding a new goal
+      const newGoalPayload = {
+        ...form,
+        userId: user.uid,
+        completed: false,
+        createdAt: serverTimestamp() // Use serverTimestamp for Firestore
+      };
+      await addDoc(collection(db, 'goals'), newGoalPayload);
     }
+    
     setForm({ title: '', description: '', dateTime: '', color: '#76ff03' });
     setEditing(null);
     setShowDialog(false);

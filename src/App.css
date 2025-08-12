@@ -1,9 +1,9 @@
 :root {
   --bg: #121212;
-  --bg-alt: #1a1d21;
+  --bg-alt: #171a1d;
   --bg-surface: #1e1e1e;
-  --bg-card: #222;
-  --border: #2a2e34;
+  --bg-card: #22252a;
+  --border: #38404d;
   --border-light: #333;
   --text: #e0e0e0;
   --text-muted: #888;
@@ -12,7 +12,7 @@
   --radius: 8px;
   --radius-lg: 12px;
   --transition: 0.3s ease-in-out;
-  --shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   --font: 'Poppins', sans-serif;
 }
 
@@ -189,8 +189,8 @@ button {
 .search-add-container {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
@@ -200,8 +200,8 @@ button {
   padding: 12px 20px;
   font-size: 16px;
   color: white;
-  background-color: #2c2c2c;
-  border: 1px solid #444;
+  background-color: #2e3338;
+   border: 1px solid transparent;
   border-radius: 50px;
   outline: none;
   transition: all 0.3s ease;
@@ -210,8 +210,8 @@ button {
   color: #888;
 }
 .search-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 8px rgba(118, 255, 3, 0.4);
+   border-color: #555;
+    box-shadow: 0 0 8px rgba(118, 255, 3, 0.4);
 }
 
 /* Summary bar */
@@ -232,11 +232,15 @@ button {
 .summary-item {
   color: white;
   font-weight: bold;
+  font-size: 1rem;
 }
 
 /* Goal list / cards */
 .goal-list-container {
   padding: 0 16px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -248,14 +252,17 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--border); 
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
   border-radius: var(--radius);
   background: #1a1a1a;
+  position: relative;
   transition: background var(--transition), box-shadow var(--transition);
 }
 .goal-card:hover {
+  transform: translateY(-2px);
   background: #222;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.15);
 }
 .goal-card .left {
   display: flex;
@@ -316,13 +323,14 @@ button {
   z-index: 100;
 }
 .dialog {
-  background: #222831;
+  background: #2e3338;
   color: var(--text);
   padding: 24px;
   border-radius: var(--radius-lg);
   width: 90%;
   max-width: 400px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+   animation: fadeIn 0.3s ease-out;
 }
 .dialog input,
 .dialog textarea {
@@ -527,6 +535,24 @@ button {
   border-radius: 50%;
   display: inline-block;
   margin-right: 12px;
+}
+
+/* Progress Bar styles */
+.progress-container {
+  width: 100%;
+  background-color: #333;
+  height: 4px;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden; /* This is the key fix for the rounded edges */
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease-in-out;
 }
 
 /* Hamburger */
