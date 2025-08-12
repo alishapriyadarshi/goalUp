@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/goalUp/static/css/main.87a89884.css",
-    "main.js": "/goalUp/static/js/main.6fcd3de2.js",
+    "main.css": "/goalUp/static/css/main.8c8fd41f.css",
+    "main.js": "/goalUp/static/js/main.589fa865.js",
     "static/js/453.fc7da059.chunk.js": "/goalUp/static/js/453.fc7da059.chunk.js",
     "index.html": "/goalUp/index.html",
-    "main.87a89884.css.map": "/goalUp/static/css/main.87a89884.css.map",
-    "main.6fcd3de2.js.map": "/goalUp/static/js/main.6fcd3de2.js.map",
+    "main.8c8fd41f.css.map": "/goalUp/static/css/main.8c8fd41f.css.map",
+    "main.589fa865.js.map": "/goalUp/static/js/main.589fa865.js.map",
     "453.fc7da059.chunk.js.map": "/goalUp/static/js/453.fc7da059.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.87a89884.css",
-    "static/js/main.6fcd3de2.js"
+    "static/css/main.8c8fd41f.css",
+    "static/js/main.589fa865.js"
   ]
 }
